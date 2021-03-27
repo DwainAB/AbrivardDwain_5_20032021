@@ -1,0 +1,16 @@
+.carousel-item{
+    height: 200px;
+}
+
+a{
+    text-decoration: none;
+    color: lightgray;
+}
+
+a:hover{
+    color: white;
+}
+
+footer{
+    height: auto;
+}
