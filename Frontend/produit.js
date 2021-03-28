@@ -15,7 +15,7 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 .then(res => {
     if(res.ok){
         res.json().then(data => {
-            document.createElement('div')
+          console.log(data);
             const produit = document.createElement('div')
             produit.innerHTML = 
         `
@@ -27,11 +27,7 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
                 <p class="price-card">${data.price / 100} €</p>
                   <label for="colors">Couleurs</label>
 
-                    <select name="couleur"   id="colors">
-                      <option value="option1"> ${data.colors[1]}</option>
-                      <option value="option1"> ${data.colors[2]}</option>
-                      <option value="option1"> ${data.colors[3]}</option>
-                      <option value="option1"> ${data.colors[4]}</option>
+                    <select name="couleur" id="colors">
                     </select>
 
                     <form>
@@ -44,6 +40,15 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
           </div>
         `
         container.appendChild(produit)
+
+        for(var i = 0; i < data.colors.length; i++){
+          var sel = document.getElementById('colors');
+          var opt = document.createElement('option');
+          opt.value = i;
+          opt.text = data.colors[i];
+          sel.add(opt,null);
+        }
+
         })
     }else {
         alert('erreur 404')
