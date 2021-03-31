@@ -1,7 +1,8 @@
+/*banière*/
 .carousel-item{
     height: 200px;
 }
-
+ /*liens de la page */
 a{
     text-decoration: none;
     color: lightgray;

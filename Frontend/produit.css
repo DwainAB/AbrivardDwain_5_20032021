@@ -1,3 +1,4 @@
+/* Liens de toute la page*/
 a{
     text-decoration: none;
     color: lightgray;
@@ -7,6 +8,26 @@ a:hover{
     color: white;
 }
 
-footer{
-    height: auto;
+/* Bouton d'ajout au panier*/
+button{
+    margin: 20px;
+}
+ /* Carte du produit*/
+.card{
+    border-color: red;
+    border-width: 2px;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 1px 1px 10px grey;
+}
+
+#quantity{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50px;
+}
+
+img{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
