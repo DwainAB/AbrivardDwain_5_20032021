@@ -1,6 +1,3 @@
-//récupération du bouton d'ajout au panier
-const btnEnvoyer = document.getElementById('btn-envoyer')
-
 // récupération de la chaîne de requête dans l'url
 const queryString_url_id = window.location.search;
 
@@ -54,12 +51,16 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 
         // ------------------------------Ajout au panier --------------------------------------------//
 
+        //récupération du bouton d'ajout au panier
+        const btnEnvoyer = document.getElementById('btn-envoyer')
+
+        // Ajout d'un évènement au clic sur le bouton
         btnEnvoyer.addEventListener('click', (e) =>{
-          e.preventDefault()
-          const quantity = document.getElementById('quantity').value
-          const colors = document.getElementById("colors").options[document.getElementById('colors').selectedIndex].text;
+          e.preventDefault() // annule le comportement par défault (rechargement de la page)
+          const quantity = document.getElementById('quantity').value    //récupération de la valeur de l'id quantity
+          const colors = document.getElementById("colors").options[document.getElementById('colors').selectedIndex].text;   // récupération du text dans les champs options
           
-          let infoProduct = {
+          let infoProduct = {  // création d'un objet qui contiendra les informations du produit séléctionner par l'utilisateur
             color : colors,
             quantity : quantity,
             name : data.name,
@@ -67,19 +68,21 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
             id : leId
           }
 
+          // création de la variable qui stockera les keys et les values
           let productLocalStorage = JSON.parse(localStorage.getItem('produit'));
 
+          const ajoutProduitLocalStorage = () =>{
+            productLocalStorage.push(infoProduct) // ajout dans tableau l'objet et les valeurs choisi par l'utilisateur
+            localStorage.setItem("produit", JSON.stringify(productLocalStorage)) // Transformation en format JSON et envois dans la key "produit" du local storage
+          }
+          // si il y a déjà des produits dans le local storage
           if(productLocalStorage){
-            productLocalStorage.push(infoProduct)
-            localStorage.setItem("produit", JSON.stringify(productLocalStorage))
-  
+            ajoutProduitLocalStorage()
+          // si il n'y a pas de produit dans le local storage
           }else{
             productLocalStorage=[];
-            productLocalStorage.push(infoProduct)
-            localStorage.setItem("produit", JSON.stringify(productLocalStorage))
-  
+            ajoutProduitLocalStorage()
           }
-
           
           })
         
