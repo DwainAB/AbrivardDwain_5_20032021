@@ -10,3 +10,55 @@ a:hover{
 table{
     margin: auto;
 }
+
+/* bouton de confirmation de commande*/
+#confirm-btn{
+    text-align: center;
+  }
+
+#confirm-btn input{
+    width: 40vw;
+    margin: 15px;
+    height: 30px;
+    border-radius: 10px;
+    color: #212529;
+    background-color: white;
+    border: none;
+    box-shadow: 1px 1px 10px #212529;
+    transition: width 500ms, color 300ms, background-color 300ms, box-shadow 500ms;;
+}
+
+#confirm-btn input:hover{
+    background-color:#212529;
+    color: white;
+    width: 45vw;
+    box-shadow: 1px 1px 10px black ;
+}
+
+/*input du formulaire*/
+.info-form{
+    font-size: 15px;
+}
+
+.choix-utilisateur{
+    border-radius:10px ;
+    border: none;
+    padding-left: 20px;
+}
+
+input:focus{
+    outline-style:none ;
+}
+
+input{
+    margin: 5px;
+}
+
+.envoiForm{
+border-radius: 30px;
+padding: 10px;
+}
+
+#email, #email2{
+    width: 50vh;
+}

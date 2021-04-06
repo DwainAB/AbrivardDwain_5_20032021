@@ -36,7 +36,7 @@
         <!--Création du tableau qui contiendra tout nos produits-->
         <div id="panier-vide"><!--Contenu JS--></div>
 
-        <div class="container">
+      <div class="container">
 
             <table class="table">
                 <thead>
@@ -46,10 +46,28 @@
             </table>
 
             <p>Sout total : <span id="prixTotal"></span>€</p>
+      </div>
+        <!--Formulaire de confirmation de commande-->
+      <div class="container-fluid">
+        <div class="envoiForm bg-danger">
 
-            <button id="confirm-command">Passer la commande</button>
+          <h2 class="text-center text-light">Informations personnelles</h2>
+          <p class="text-center text-light info-form">Veuillez renseigner les informations demandées </br> avant de passer commande.</p>
+
+          <div class="col">
+            <form id="confirmation">
+              <input type="text" name="pseudo" placeholder="Nom" id="lastName" class="choix-utilisateur">
+              <input type="text" name="pseudo" placeholder="Prénom" id="firstName" class="choix-utilisateur"><br>
+              <input type="email" name="email" placeholder="email" id="email" class="choix-utilisateur">
+              <input type="email" name="email-confirmation" placeholder="email de confirmation" id="email2" class="choix-utilisateur"><br>
+              <input type="password" name="mdp" placeholder="mot de passe" id="mdp" class="choix-utilisateur"><br>
+              <div id="confirm-btn"><input type="submit" value="Passer la commande"></div>
+              <p id="erreur"></p>
+            </form>  
+          </div>
+
         </div>
-        
+      </div>
     </main>
 
     <footer class="bg-dark">
