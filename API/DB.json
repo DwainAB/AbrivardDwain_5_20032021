@@ -1,0 +1,19 @@
+{
+    "Teddies": [
+        {
+            "_id": "fheidj",
+            "title": "ours",
+            "descritpion": "ours brun",
+            "imgUrl": "https://www.unecuillerepourdoudou.com/10346-thickbox_default/peluche-ours-douceur-miel-20cm.jpg",
+            "price": 3900
+        },
+
+        {
+            "_id": "vefes",
+            "title": "ours en peluche",
+            "descritpion": "ours brun",
+            "imgUrl": "https://www.unecuillerepourdoudou.com/10346-thickbox_default/peluche-ours-douceur-miel-20cm.jpg",
+            "price": 4000
+        }
+    ] 
+}

@@ -45,7 +45,7 @@
                 <tbody id="cart-tablebody"><!--contenu JS--></tbody>
             </table>
 
-            <p>Sout total : <span id="prixTotal"></span>€</p>
+            <p>Prix total : <span id="prixFinal"></span>€</p>
       </div>
         <!--Formulaire de confirmation de commande-->
       <div class="container-fluid">
@@ -55,12 +55,13 @@
           <p class="text-center text-light info-form">Veuillez renseigner les informations demandées </br> avant de passer commande.</p>
 
           <div class="col">
-            <form id="confirmation">
-              <input type="text" name="pseudo" placeholder="Nom" id="lastName" class="choix-utilisateur">
-              <input type="text" name="pseudo" placeholder="Prénom" id="firstName" class="choix-utilisateur"><br>
+            <form action="" method="POST" id="confirmation">
+              <input type="text" name="nom" placeholder="Nom" id="lastName" class="choix-utilisateur">
+              <input type="text" name="prenom" placeholder="Prénom" id="firstName" class="choix-utilisateur"><br>
+              <input type="text" name="adresse" placeholder="Adresse" id="address" class="choix-utilisateur">
+              <input type="text" name="ville" placeholder="Ville" id="city" class="choix-utilisateur"><br>
               <input type="email" name="email" placeholder="email" id="email" class="choix-utilisateur">
               <input type="email" name="email-confirmation" placeholder="email de confirmation" id="email2" class="choix-utilisateur"><br>
-              <input type="password" name="mdp" placeholder="mot de passe" id="mdp" class="choix-utilisateur"><br>
               <div id="confirm-btn"><input type="submit" value="Passer la commande"></div>
               <p id="erreur"></p>
             </form>  

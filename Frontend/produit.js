@@ -15,25 +15,43 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 .then(res => {
     if(res.ok){
         res.json().then(data => {
+
+          class recoveredProducts{
+            constructor(name, price, imageUrl, description, colors){
+              this.name = name
+              this.price = price
+              this.imageUrl = imageUrl
+              this.description =  description
+              this.colors = colors
+            }
+          }
+
+          let recoveredProduct = new recoveredProducts (data.name, data.price, data.imageUrl, data.description, data.colors)   
+
             const produit = document.createElement('div') //création d'une div qui contiendra notre code html
             produit.innerHTML =  //insération de notre code dans la div 
         `
             <div class="card">
-            <img src="${data.imageUrl}" alt="">
+            <img src="${recoveredProduct.imageUrl}" alt="">
             <div class="body-card">
               <div class="row">
-                <h4 class="title-card">${data.name}</h4></div>
-                <p class="price-card" id="test">${data.price / 100} €</p>
+                <h4 class="title-card">${recoveredProduct.name}</h4></div>
+                <p class="price-card" id="test">${recoveredProduct.price / 100} €</p>
 
                   <form>
                     <label for="colors">Couleurs</label>
                     <select name="couleur" id="colors"></select> </br>
 
                     <label for="quantity">Quantité</label>
-                    <input type="number" id="quantity" min="1" value="1"> 
+                    <select id="quantity" name="q">
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
                   </form>
-
-                <p class="card-description">${data.description}</p>
+                <p class="card-description">${recoveredProduct.description}</p>
             </div>
           </div>
         `
@@ -41,11 +59,11 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 
         // Boucle qui nous permet de récupérer les différentes couleurs pour notre select
 
-        for(let i = 0; i < data.colors.length; i++){
+        for(let i = 0; i < recoveredProduct.colors.length; i++){
           let sel = document.getElementById('colors');
           let opt = document.createElement('option');
           opt.value = i;
-          opt.text = data.colors[i];
+          opt.text = recoveredProduct.colors[i];
           sel.add(opt,null);
         }
 
@@ -56,15 +74,15 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 
         // Ajout d'un évènement au clic sur le bouton
         btnEnvoyer.addEventListener('click', (e) =>{
-          e.preventDefault() // annule le comportement par défault (rechargement de la page)
+         e.preventDefault() // annule le comportement par défault (rechargement de la page)
           const quantity = document.getElementById('quantity').value    //récupération de la valeur de l'id quantity
           const colors = document.getElementById("colors").options[document.getElementById('colors').selectedIndex].text;   // récupération du text dans les champs options
           
           let infoProduct = {  // création d'un objet qui contiendra les informations du produit séléctionner par l'utilisateur
             color : colors,
             quantity : quantity,
-            name : data.name,
-            price : data.price / 100,
+            name : recoveredProduct.name,
+            price : recoveredProduct.price / 100,
             id : leId
           }
 
@@ -76,14 +94,10 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
             localStorage.setItem("produit", JSON.stringify(productLocalStorage)) // Transformation en format JSON et envois dans la key "produit" du local storage
           }
           // si il y a déjà des produits dans le local storage
-          if(productLocalStorage){
-            ajoutProduitLocalStorage()
-          // si il n'y a pas de produit dans le local storage
-          }else{
+          if(productLocalStorage == null){
             productLocalStorage=[];
-            ajoutProduitLocalStorage()
           }
-          
+            ajoutProduitLocalStorage()
           })
         
         // ------------------------------ Fin Ajout au panier --------------------------------------------//
