@@ -1,3 +1,5 @@
+//********************************* Déclaration de variables *********************************
+
 // récupération de la chaîne de requête dans l'url
 const queryString_url_id = window.location.search;
 
@@ -10,6 +12,8 @@ const leId = queryString_url_id.slice(1)
 const container = document.getElementById('container-product')
 
 // récupération de notre produit grâce à son Id  + insération dans le code html 
+
+//********************************* Récupération de notre produit avec Fetch *********************************
 
 let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
 .then(res => {
@@ -67,7 +71,7 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
           sel.add(opt,null);
         }
 
-        // ------------------------------Ajout au panier --------------------------------------------//
+//********************************* Ajout au panier *********************************
 
         //récupération du bouton d'ajout au panier
         const btnEnvoyer = document.getElementById('btn-envoyer')
@@ -100,8 +104,7 @@ let response = fetch (`http://localhost:3000/api/teddies/${leId}`)
             ajoutProduitLocalStorage()
           })
         
-        // ------------------------------ Fin Ajout au panier --------------------------------------------//
-
+//********************************* Fin ajout au panier *********************************
         })
     }else {
         alert('erreur 404')

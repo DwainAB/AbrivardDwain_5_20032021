@@ -1,4 +1,4 @@
-// ---------------------------Déclaration de variables -----------------------------------------
+//********************************* Déclaration de variables *********************************
 
 //Déclaration de la variable qui contient les éléments du localStorage
 let productLocalStorage = JSON.parse(localStorage.getItem('produit'));
@@ -9,7 +9,10 @@ const panierVide = document.getElementById('panier-vide')
 // Déclaration du tableau qui contiendra les prix de tous les articles du panier
 const prixCalculer = []
 
-//--------------------------Tableau de produit séléctionné-------------------------------
+// Déclaration d'un tableau qui contiendra l'id de tous les articles
+const products =[]
+
+//********************************* Tableau de produit séléctionné *********************************
 
 // si mon local Storage est vide 
 if(productLocalStorage === null){
@@ -33,34 +36,41 @@ panierVide.innerHTML= '<p class="text-center">Le panier est vide !</p>'
         table.appendChild(ligne) // ajout de nos balises 'tr' à notre élément 'table'
 
         prixCalculer.push(element.price * element.quantity) //Envoie les prix de nos articles au tableau "prixCalculer"
-    
+        
+        products.push(element.id) // Envois les Id dans le tableau "products"
 });
 }
 
-//-----------------------------Calcul du prix total------------------------------------------------
+//********************************* Calcul du prix total ***********************************************
 
- // Déclaration d'une variable qui contiendra le calcul de tous les nombres du tableau "prixCalculer"
-const prixTotal = prixCalculer.reduce((x , y) => x + y)
+if(productLocalStorage === null){ //si le productLocalStorage est vide
+//fais rien 
+}else{
 
-let prixFinal = document.getElementById('prixFinal') //récupération de la balise qui affichera le prix
+    // Déclaration d'une variable qui contiendra le calcul de tous les nombres du tableau "prixCalculer"
+    const prixTotal = prixCalculer.reduce((x , y) => x + y)
 
-prixFinal.innerHTML= prixTotal 
+    let prixFinal = document.getElementById('prixFinal') // Récupération de la balise qui affichera le prix
+    
+    prixFinal.innerHTML= prixTotal  // Affiche le prix dans la balise récupéré
+}
 
-//------------------------------Supprimer un article du panier--------------------------------------
+
+//********************************* Supprimer un article du panier **********************************************
 
 // création de la fonction qui permettra de supprimer un article
 
 function deleteProductEventHandler(productName){
     productLocalStorage.forEach((item, index) => {
         if(item.name == productName){
-            productLocalStorage.splice(index, 1)
-            location.reload()
-            localStorage.setItem("produit", JSON.stringify(productLocalStorage))
+            productLocalStorage.splice(index, 1) // Supprime le produit séléctionné
+            location.reload() // Relance la page
+            localStorage.setItem("produit", JSON.stringify(productLocalStorage)) // Renvois le résultat dans le localStorage
         }
     })
 }
 
-//--------------------------------Formulaire 'informations personnelles'-----------------------------
+//********************************* Formulaire 'informations personnelles' **************************************//
 
 let form = document.getElementById('confirmation') //récupération de la balise "form"
 
@@ -74,7 +84,7 @@ form.addEventListener('submit', function(e){ //lors du clic sur le bouton du for
     let city = document.getElementById('city')
     let email = document.getElementById('email')
     let email2 = document.getElementById('email2')
-    let infoCommande = []
+    
     
    
     // lorsqu'un élément n'est pas rempli, affiche un message d'erreur dans la variable "erreur"
@@ -102,21 +112,44 @@ form.addEventListener('submit', function(e){ //lors du clic sur le bouton du for
     if (erreur){ //Donc si "erreur", récupère la balise qui affichera le message
        document.getElementById('erreur').innerHTML = erreur
         return false 
+
     }else {
         alert('formulaire envoyé') //Si tous les champs sont remplis, une alerte s'affichera
 
-        let coordonnée = {
-            nom : lastName.value,
-            prenom : firstName.value,
-            adresse : address.value,
-            ville : city.value,
+        // ajoute les valeurs des champs dans un objet
+        let contact = {
+            firstName: lastName.value,
+            lastName: firstName.value,
+            address : address.value,
+            city : city.value,
             email : email.value 
         }
-        infoCommande.push(coordonnée)
-        infoCommande.push(productLocalStorage)
-        console.log(infoCommande);
+//************************************** Envois des éléments au serveur ********************************************* //
 
+        fetch('http://localhost:3000/api/teddies/order',{  // Connexion à l'API
+            method:"POST",      // Utilisation de la méthode POST pour transmettre des données
+            headers : { //Indique que nous envoyons du format JSON
+                "Content-type" : "application/json"
+            },
+            body : JSON.stringify({ // Transformation de notre objet "contact" et de notre tableau "products" en format JSON
+                contact : contact, // Envois de notre objet contact
+                products : products  // Envois de notre tableau "products"
+            })
+        })
+        .then( res =>{  
+            if(res.ok){
+                res.json().then(data =>{
+
+                    // Création de la variable qui stockera les keys et les values
+                    let confirmationLocalStorage = JSON.parse(localStorage.getItem('confirmation')); 
+
+                    confirmationLocalStorage= [] // Création de la variable en tableau
+                    confirmationLocalStorage.push(data)  // Envois notre réponse dans le tableau
+                    localStorage.setItem("confirmation", JSON.stringify(confirmationLocalStorage)) //Transformation de notre réponse en format json et envois dans la key "confirmation"
+                    setTimeout(window.location.href="confirmation.html",2000)  // Retarde le changement de page de 2s
+                })
+            }
+        })
     }
-
-
 })
+
