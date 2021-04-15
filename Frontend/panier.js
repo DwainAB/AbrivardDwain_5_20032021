@@ -8,7 +8,6 @@ const panierVide = document.getElementById('panier-vide')
 
 // Déclaration du tableau qui contiendra les prix de tous les articles du panier
 const prixCalculer = []
-
 // Déclaration d'un tableau qui contiendra l'id de tous les articles
 const products =[]
 
@@ -53,7 +52,17 @@ if(productLocalStorage === null){ //si le productLocalStorage est vide
     let prixFinal = document.getElementById('prixFinal') // Récupération de la balise qui affichera le prix
     
     prixFinal.innerHTML= prixTotal  // Affiche le prix dans la balise récupéré
+   
+    // Création de la variable qui stockera les keys et les values
+    let prixLocalStorage = JSON.parse(localStorage.getItem('prixTotal'));
+    prixLocalStorage=[] //transformation en tableau
+    
+    prixLocalStorage.push(prixTotal) // Envois du prix dans dans le tableau 
+
+// Transformation en format JSON et envois dans la key "prixTotal" du local storage
+    localStorage.setItem("prixTotal", JSON.stringify(prixLocalStorage))
 }
+
 
 
 //********************************* Supprimer un article du panier **********************************************
