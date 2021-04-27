@@ -6,24 +6,6 @@
     font-size: 1.2em;
 }
 
-#backHome{
-    border-radius: 15px;
-    width: 40vw;
-    padding: 5px;
-    color: #212529;
-    background-color: white;
-    border: none;
-    box-shadow: 1px 1px 10px #212529;
-    transition: width 500ms, color 300ms, background-color 300ms, box-shadow 500ms;
-}
-
-#backHome:hover{
-    background-color:#212529;
-    color: white;
-    width: 45vw;
-    box-shadow: 1px 1px 10px black ;
-}
-
 td{
     color: white;
 }
@@ -37,3 +19,22 @@ a:hover{
     color: white;
 }
 
+#backHome {
+    border-radius: 15px;
+    width: 40vw;
+    padding: 5px;
+    color: #212529;
+    background-color: white;
+    border: none;
+    box-shadow: 1px 1px 10px #212529;
+    transition: width 500ms, color 300ms, background-color 300ms, box-shadow 500ms;
+}
+
+
+
+#backHome:hover{
+    background-color:#212529;
+    color: white;
+    width: 45vw;
+    box-shadow: 1px 1px 10px black ;
+}
