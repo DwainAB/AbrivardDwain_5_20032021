@@ -1,7 +1,6 @@
 //******************************* Class des API ***********************************
-
+import Product from "./Product.js"
 export default class TeddyService {
-
 //************************************ API de panier.js *****************************
 
     async updateTeddies(contact, products) {
@@ -34,6 +33,9 @@ export default class TeddyService {
                 return res.json()   
             }
         })
+        .then( jsonData =>{
+            return new Product (jsonData.name, jsonData.price, jsonData._id, jsonData.colors, jsonData.quantity, jsonData.uniqueId, jsonData.imageUrl, jsonData.description)
+        })
         return reponse2
     }
 
@@ -41,7 +43,6 @@ export default class TeddyService {
 //********************************* API de index.js ***********************/
 
 async getTeddies() {
-    console.log("getTeddies");
    let reponse3 = await fetch("http://localhost:3000/api/teddies")  // Connexion à l'API
     .then( res =>{  
         if(res.ok){
