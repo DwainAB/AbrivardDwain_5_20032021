@@ -1,6 +1,6 @@
 class Cart {
     constructor(){
-        this.items = JSON.parse(localStorage.getItem('produit'))
+        this.items = JSON.parse(localStorage.getItem('Products'))
     }
     addItem(newItem){
         
@@ -15,6 +15,6 @@ class Cart {
     }
 
     saveToStorage(){
-        localStorage.setItem('produit', JSON.stringify(this.items))
+        localStorage.setItem('Products', JSON.stringify(this.items))
     }
 }
