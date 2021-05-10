@@ -1,4 +1,5 @@
 import TeddyService from './api.js'
+import Cart from './Cart.js'
 //********************************* Déclaration de variables *********************************
 
 let productLocalStorage = JSON.parse(localStorage.getItem('Products')); //Déclaration de la variable qui contient les éléments du localStorage
@@ -6,7 +7,7 @@ const emptyBasket = document.getElementById('panier-vide') //Récupération de l
 const pricesCalculate = [] // Déclaration du tableau qui contiendra les prix de tous les articles du panier
 const products = [] // Déclaration d'un tableau qui contiendra l'id de tous les articles
 let form = document.getElementById('confirmation') //récupération de la balise "form"
-
+let cart = new Cart()
 //********************************* Liste de fonctin ***********************************************
 
 function showProducts() {
@@ -29,31 +30,9 @@ function showProducts() {
 
     });
 
-    let removeItem = document.querySelectorAll('.removeItem')
+    let item = document.querySelectorAll('.removeItem')
 
-    for (let i = 0; i < removeItem.length; i++) {
-        removeItem[i].addEventListener('click', () => {
-            let uniqueIdItem = productLocalStorage[i].uniqueId
-            productLocalStorage = productLocalStorage.filter(element => element.uniqueId !== uniqueIdItem);
-            localStorage.setItem('Products', JSON.stringify(productLocalStorage))
-            location.reload()
-        })
-    }
-}
-
-function showTotalPrice() {
-    // Déclaration d'une variable qui contiendra le calcul de tous les nombres du tableau "pricesCalculate"
-    const totalPrice = pricesCalculate.reduce((x, y) => x + y)
-    let prixFinal = document.getElementById('prixFinal')
-    prixFinal.innerHTML = totalPrice
-
-    // Création de la variable qui stockera les keys et les values
-    let prixLocalStorage = JSON.parse(localStorage.getItem('basketPrice'));
-    prixLocalStorage = []
-    prixLocalStorage.push(totalPrice)
-
-    // Transformation en format JSON et envois dans la key "totalPrice" du local storage
-    localStorage.setItem("basketPrice", JSON.stringify(prixLocalStorage))
+    cart.removeItem(item, productLocalStorage)
 }
 
 
@@ -65,7 +44,7 @@ if (productLocalStorage === null || productLocalStorage == 0) {
 
 } else {
     showProducts()
-    showTotalPrice()
+    cart.calculateTotal(pricesCalculate)
 }
 
 //********************************* Formulaire 'informations personnelles' **************************************//
