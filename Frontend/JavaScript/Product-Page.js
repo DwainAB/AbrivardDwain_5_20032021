@@ -5,45 +5,41 @@ import Cart from './Cart.js'
 //********************************* Déclaration de variables *********************************
 
 const queryString_url_id = window.location.search; // récupération de la chaîne de requête dans l'url
-const leId = queryString_url_id.slice(1) // extraction de l'id seulement 
+const idProduct = queryString_url_id.slice(1) // extraction de l'id seulement 
 const sendButton = document.getElementById('btn-envoyer') //Récupération du boutton d'envois
 let cart = new Cart()
-//******************** Fonction qui récupère les informations du produit *******************/
-//******************************** Et les envois dans le localStorage **********************/
-
-function addBasket() {
-  sendButton.addEventListener('click', (e) => {
-    e.preventDefault()
-
-    const getQuantity = document.getElementById('quantity').value
-    const colors = document.getElementById("colors").options[document.getElementById('colors').selectedIndex].text;
-    const getName = document.getElementById('nom');
-    const getPrice = document.getElementById('prix')
-
-    let productLocalStorage = JSON.parse(localStorage.getItem('Products'));
-    let uniqueId = 0
-    let quantity = Number(getQuantity)
-    const name = getName.innerText || getName.textContent;
-    const price = getPrice.innerText || getPrice.textContent;
-
-    if (productLocalStorage !== null) {
-      uniqueId = productLocalStorage.length
-    }
-
-    let getInfoProduct = new Product(name, price, leId, colors, quantity, uniqueId)
-
-    cart.addItem(productLocalStorage, getInfoProduct, name, colors, quantity)
-
-  })
-}
 
 //********************************* Récupération de notre produit avec Fetch *********************************
 //********************************* Et insération dans le code html ******************************************
 
 let getTeddyApi = new TeddyService()
-const result = getTeddyApi.getTeddy(leId)
+const result = getTeddyApi.getTeddy(idProduct)
 
 result.then(data => {
+
+  function addBasket() {
+    sendButton.addEventListener('click', (e) => {
+      e.preventDefault()
+  
+      const getQuantity = document.getElementById('quantity').value
+      const getName = document.getElementById('nom');
+  
+      let productLocalStorage = JSON.parse(localStorage.getItem('Products'));
+      let uniqueId = 0
+      let color = document.getElementById("colors").options[document.getElementById('colors').selectedIndex].text
+      const name = getName.innerText || getName.textContent;
+      let quantity = Number(getQuantity)
+  
+      if (productLocalStorage !== null) {
+        uniqueId = productLocalStorage.length
+      }
+  
+      let infoProduct = new Product(data._id, data.name, data.price / 100, data.imageUrl, data.description, data.colors, data.quantity = quantity, data.uniqueId = uniqueId, data.selectedColor = color)
+  
+      cart.addItem(infoProduct, name, color, quantity)
+  
+    })
+  }
 
   let picture = document.getElementById('image')
   let name = document.getElementById('nom')

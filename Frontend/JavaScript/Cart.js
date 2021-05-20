@@ -1,43 +1,35 @@
 export default class Cart {
     constructor() {
-        this.items = JSON.parse(localStorage.getItem('Products'))
+        this.items = JSON.parse(localStorage.getItem('Products')) || []
     }
 
-    addItem(productLocalStorage, getInfoProduct, name, colors, quantity) {
-
-        const addProductLocalStorage = () => {
-            productLocalStorage.push(getInfoProduct)
-            localStorage.setItem("Products", JSON.stringify(productLocalStorage)) // Transformation en format JSON et envois dans la key "Products" du local storage
-        }
-
-        if (productLocalStorage == null) {
-            productLocalStorage = [];
-        }
+    addItem(infoProduct, name, color, quantity) {
 
         let newArticle = true
 
-        productLocalStorage.forEach(element => {
-            if (element.name == name & element.colors == colors) {
+        this.items.forEach(element => {
+         
+            if (element.name == name & element.selectedColor == color) {
                 newArticle = false
                 let getElementQuantity = Number(element.quantity)
                 element.quantity = getElementQuantity += quantity
-                localStorage.setItem("Products", JSON.stringify(productLocalStorage)) // Transformation en format JSON et envois dans la key "Products" du local storage
-
             }
         });
 
         if (newArticle) {
-            addProductLocalStorage()
+            this.items.push(infoProduct)
+
         }
+        this.saveToStorage()
     }
 
-    removeItem(item, productLocalStorage) {
+    removeItem(item) {
 
         for (let i = 0; i < item.length; i++) {
             item[i].addEventListener('click', () => {
-                let uniqueIdItem = productLocalStorage[i].uniqueId
-                productLocalStorage = productLocalStorage.filter(element => element.uniqueId !== uniqueIdItem);
-                localStorage.setItem('Products', JSON.stringify(productLocalStorage))
+                let uniqueIdItem = this.items[i].uniqueId
+                this.items = this.items.filter(element => element.uniqueId !== uniqueIdItem);
+                this.saveToStorage()
                 location.reload()
             })
         }

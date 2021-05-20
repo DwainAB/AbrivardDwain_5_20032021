@@ -1,15 +1,26 @@
  export default class Product{
-    constructor(name, price, _id, colors, quantity, uniqueId, imageUrl, description){
+    constructor(_id, name, price, imageUrl, description, colors, quantity, uniqueId, selectedColor){
+      this._id =  _id
       this.name = name
       this.price = price
-      this._id =  _id
+      this.imageUrl = imageUrl
+      this.description = description
       this.colors = colors
       this.quantity = quantity
       this.uniqueId = uniqueId
-      this.imageUrl = imageUrl
-      this.description = description
+      this.selectedColor = selectedColor
     }
   }
-
+/*
+id
+nale
+price
+imageUrl
+description
+colors
+quantity
+uniqueId
+selectedColor
+*/
 
   

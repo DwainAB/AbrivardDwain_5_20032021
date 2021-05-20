@@ -19,7 +19,7 @@ function showProducts() {
         tableRow.innerHTML =
             `
         <td class="productName">${element.name}</td>
-        <td>${element.colors}</td>
+        <td>${element.selectedColor}</td>
         <td>${element.quantity}</td>
         <td class="prix">${element.price * element.quantity}</td>  
         <button class="removeItem">Supprimer</button>
