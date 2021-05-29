@@ -10,17 +10,13 @@
       this.uniqueId = uniqueId
       this.selectedColor = selectedColor
     }
+
+    getFormattedPrice(number){
+     return number / 100 + "," + number % 100
+    }
+
   }
-/*
-id
-nale
-price
-imageUrl
-description
-colors
-quantity
-uniqueId
-selectedColor
-*/
+
+
 
   
