@@ -12,7 +12,7 @@
     }
 
     getFormattedPrice(number){
-     return number / 100 + "," + number % 100
+     return number / 100 
     }
 
   }
